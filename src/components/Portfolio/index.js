@@ -5,7 +5,7 @@ import PortfolioProject from "../PortfolioProject";
 
 const Portfolio = ({ type, content, colors }) => {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" style={{marginBottom:"50px"}}>
       <div
         style={{
           display: "flex",

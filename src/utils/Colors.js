@@ -14,6 +14,7 @@ const colors = {
     logoDesignColor: 'rgb(148, 115, 230)',
     afterEffects: 'rgb(189, 236, 246)',
     webApp: 'rgb(255, 188, 170)',
+    footer: "rgba(255,255,255,.5)"
 }
 
 export default colors;

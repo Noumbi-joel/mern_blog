@@ -8,7 +8,7 @@ import {
   } from "@mui/material";
 import CartSkills from "../CartSkills.js";
 
-const Categories = ({ type, exp }) => {
+const Categories = ({ type, exp, actions }) => {
   return (
     <>
       <Container maxWidth="lg" style={{ backgroundImage: `url(${educationBg})`}}>
@@ -21,12 +21,12 @@ const Categories = ({ type, exp }) => {
             marginBottom: "50px",
           }}
         >
-          <Typography variant="h2">{type[0]}</Typography>
+          <Typography variant="h2" fontFamily="Poppins">{type[0]}</Typography>
         </div>
 
         <Grid container spacing={4} style={{display: "flex", justifyContent: "center" }}>
           {type[1].map((skill, index) => (
-            <CartSkills exp={exp} skill={skill} key={index} />
+            <CartSkills exp={exp} actions={actions} skill={skill} key={index} />
           ))}
         </Grid>
       </Container>

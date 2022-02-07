@@ -8,10 +8,11 @@ import {
   Card,
   CardContent,
   CardMedia,
+  CardActions
 } from "@mui/material";
 import colors from "../../utils/Colors";
 
-const CartSkills = ({ skill, exp }) => {
+const CartSkills = ({ skill, exp, actions }) => {
   return (
     <>
       <Grid item xs={12} sm={4}>
@@ -37,23 +38,28 @@ const CartSkills = ({ skill, exp }) => {
           />
           <CardContent style={{ flexGrow: 1 }}>
             {!exp ?
-              <Typography variant="h6" align="center" fontWeight="bold">
+              <Typography variant="h6" align="center" fontFamily="Poppins" fontWeight="bold">
                 {skill.title} ({skill.percentage})
               </Typography>
               :
               <>
-                <Typography variant="body1" style={{color: colors.grey, fontWeight: '400', fontSize: '15px'}} align="center" fontWeight="bold">
+                <Typography variant="body1" style={{color: colors.grey, fontWeight: '400', fontSize: '15px', fontFamily: "Poppins"}} align="center" fontWeight="bold">
                   {skill.duration}
                 </Typography>
-                <Typography variant="h4" style={{color: colors.black, fontSize: '22px'}} align="center" fontWeight="bold">
+                <Typography variant="h4" style={{color: colors.black, fontSize: '22px', fontFamily: "Poppins"}} align="center" fontWeight="bold">
                   {skill.jobName}
                 </Typography>
-                <Typography variant="h6" style={{color: colors.textLight, fontSize: '14px'}} align="center" fontWeight="bold">
+                <Typography variant="h6" style={{color: colors.textLight, fontSize: '14px', fontFamily: "Poppins"}} align="center" fontWeight="bold">
                   {skill.title}
                 </Typography>
               </>
             }
           </CardContent>
+          {actions && (
+            <CardActions>
+              <Button variant="contained" style={{ backgroundColor: colors.purple, fontWeight: 'bold', fontFamily: "Poppins" }} size="small" color="primary">Read More</Button>
+            </CardActions>
+          )}
         </Card>
       </Grid>
     </>

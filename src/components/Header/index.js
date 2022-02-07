@@ -46,6 +46,7 @@ const Header = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
+          fontFamily="Poppins" 
             variant="h6"
             noWrap
             component="div"
@@ -58,6 +59,7 @@ const Header = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
+              fontFamily="Poppins" 
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -86,12 +88,13 @@ const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography fontFamily="Poppins"  textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
           <Typography
+          fontFamily="Poppins" 
             variant="h6"
             noWrap
             component="div"
@@ -135,7 +138,7 @@ const Header = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography fontFamily="Poppins"  textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
