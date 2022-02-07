@@ -1,14 +1,6 @@
 import React from "react";
 
-import {
-  Typography,
-  Container,
-  Button,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-} from "@mui/material";
+import { Typography, Container, Button } from "@mui/material";
 
 //images
 import leafYellow from "../../images/illustrations/leaf-yellow.png";
@@ -18,6 +10,7 @@ import leafCyan from "../../images/illustrations/leaf-cyan-2.png";
 import leafBg from "../../images/illustrations/leaf-bg.png";
 import dotOrange from "../../images/illustrations/dots-orange.png";
 import dotGroupOrange from "../../images/illustrations/dots-group-orange.png";
+import bgDots from "../../images/illustrations/bg-dots.png";
 
 import nodeJs from "../../images/skills/nodejs.png";
 import reactJs from "../../images/skills/reactjs.png";
@@ -29,8 +22,24 @@ import firebase from "../../images/skills/firebase.png";
 import jsonWebToken from "../../images/skills/jsonwebtoken.png";
 import xamarin from "../../images/skills/xamarin.png";
 
+import database from "../../images/services/database.png";
+import web from "../../images/services/web.jpg";
+import mobile from "../../images/services/phone.jfif";
+
+import steam1 from "../../images/portfolio/steam/part1.png";
+import steam2 from "../../images/portfolio/steam/part3.png";
+import steam3 from "../../images/portfolio/steam/part5.png";
+
+import agogo1 from "../../images/portfolio/agogolines/agogo1.png";
+import agogo2 from "../../images/portfolio/agogolines/agogo2.png";
+import agogo3 from "../../images/portfolio/agogolines/agogo3.png";
+import agogo4 from "../../images/portfolio/agogolines/agogo4.png";
+import agogo5 from "../../images/portfolio/agogolines/agogo5.png";
+import agogo6 from "../../images/portfolio/agogolines/agogo6.png";
+
 import agogolines from "../../images/experience/agogolines.jfif";
 import chered from "../../images/experience/chered.jfif";
+
 
 import {
   FacebookOutlined,
@@ -42,31 +51,88 @@ import colors from "../../utils/Colors";
 
 //components
 import Categories from "../Categories";
+import Education from "../Education";
+import Portfolio from "../Portfolio";
 
 const skills = [
   { title: "React Js", percentage: "95%", image: reactJs },
   { title: "React Native", percentage: "95%", image: reactNative },
   { title: "Redux", percentage: "95%", image: redux },
   { title: "Json Web Token", percentage: "95%", image: jsonWebToken },
-  { title: "Node Js", percentage: "80%", image: nodeJs},
+  { title: "Node Js", percentage: "80%", image: nodeJs },
   { title: "Material UI", percentage: "80%", image: materialUi },
   { title: "Mongo DB", percentage: "80%", image: mongoDb },
   { title: "Firebase", percentage: "80%", image: firebase },
   { title: "Xamarin", percentage: "70%", image: xamarin },
 ];
 
+const projects = [
+  { content: "", image: steam1 },
+  { content: "", image: steam2 },
+  /* { content: "", image: steam3 }, */
+  { content: "", image: agogo1},
+  { content: "", image: agogo4},
+  /* { content: "", image: agogo3},
+  { content: "", image: agogo2},
+  { content: "", image: agogo5},
+  { content: "", image: agogo6}, */
+];
+
+const services = [
+  {
+    title:
+      "Building powerful and scalable ios and android app using React Native technology",
+    image: mobile,
+    jobName: "Mobile Applications",
+  },
+  {
+    title:
+      "Building powerful and scalable web applications using React Library",
+    image: web,
+    jobName: "Web Applications",
+  },
+  {
+    title:
+      "Building efficient databases using mongoDB or Firebase and Manage it by Node Js",
+    image: database,
+    jobName: "Database ",
+  },
+];
+
 const experiences = [
-  {title: "Agogolines", duration: "Sept 2021- Nov 2021", jobName: "React Native Developer", image: agogolines},
-  {title: "Chered Engineering", duration: "Jun 2020- Jul 2020", jobName: "Php Developer", image: chered}
+  {
+    title: "Agogolines",
+    duration: "Sept 2021- Nov 2021",
+    jobName: "React Native Developer",
+    image: agogolines,
+  },
+  {
+    title: "Chered Engineering",
+    duration: "Jun 2020- Jul 2020",
+    jobName: "Php Developer",
+    image: chered,
+  },
 ];
 
 const educations = [
-  {school: "Government Bilingual High School Edea", year: "2021", diploma: "higher secondary certificate"},
-  {school: "university institute of the coast", year: "2021", diploma: "advanced technician's certificate"},
-  {school: "university institute of the coast", year: "2022", diploma: "Bachelor of Technology"}
-]
+  {
+    school: "Government Bilingual High School Edea",
+    year: "2021",
+    diploma: "Higher Secondary Certificate",
+  },
+  {
+    school: "university institute of the coast",
+    year: "2021",
+    diploma: "Advanced Technician's Certificate",
+  },
+  {
+    school: "university institute of the coast",
+    year: "2022",
+    diploma: "Bachelor of Technology Software Engineering",
+  },
+];
 
-const Banner = (props) => {
+const Body = (props) => {
   return (
     <>
       <div
@@ -151,13 +217,17 @@ const Banner = (props) => {
         </div>
       </Container>
 
-      <Categories type={skills} exp={false} />
-      <Categories type={experiences} exp={true} />
-      {/* <Categories type={["education", skills]}  /> */}
-
-      
+      <Categories type={["Skills", skills]} exp={false} />
+      <Categories type={["Experiences", experiences]} exp={true} />
+      <Education
+        educations={["educations", educations]}
+        bgDots={bgDots}
+        colors={colors}
+      />
+      <Categories type={["Services", services]} exp={true} />
+      <Portfolio type={["Portfolio", projects]} color={colors} />
     </>
   );
 };
 
-export default Banner;
+export default Body;

@@ -3,7 +3,8 @@ import { CssBaseline } from "@mui/material"
 
 //components
 import Header from "./components/Header";
-import Banner from "./components/Banner";
+import Banner from "./components/Body";
+import Body from "./components/Body";
 
 const App = () => {
 
@@ -12,9 +13,7 @@ const App = () => {
         <CssBaseline />
         <Header />
         <main>
-          <div>
-            <Banner />
-          </div>
+            <Body />
         </main>
       </>
   );

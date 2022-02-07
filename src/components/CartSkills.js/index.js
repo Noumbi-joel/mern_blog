@@ -14,7 +14,7 @@ import colors from "../../utils/Colors";
 const CartSkills = ({ skill, exp }) => {
   return (
     <>
-      <Grid item xs={12} sm={4} >
+      <Grid item xs={12} sm={4}>
         <Card
           style={!exp ? {
             height: "100%",
@@ -25,14 +25,15 @@ const CartSkills = ({ skill, exp }) => {
             height: "100%",
             display: "flex",
             flexDirection: "column",
-            boxShadow: "none"
+            boxShadow: "0px 18px 39.1px 6.9px rgb(224 241 255 / 34%)",
+
           }
         }
         >
           <CardMedia
             image={skill.image}
             title={skill.school}
-            style={{ paddingTop: "50%" }}
+            style={{ paddingTop: "56.25%" }}
           />
           <CardContent style={{ flexGrow: 1 }}>
             {!exp ?

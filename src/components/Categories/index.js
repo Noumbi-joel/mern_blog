@@ -1,20 +1,17 @@
 import React, {useState} from "react";
+import educationBg from "../../images/illustrations/education-bg.png";
 
 import {
     Typography,
     Container,
-    Button,
     Grid,
-    Card,
-    CardContent,
-    CardMedia,
   } from "@mui/material";
 import CartSkills from "../CartSkills.js";
 
 const Categories = ({ type, exp }) => {
   return (
     <>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ backgroundImage: `url(${educationBg})`}}>
         <div
           style={{
             display: "flex",
@@ -27,9 +24,9 @@ const Categories = ({ type, exp }) => {
           <Typography variant="h2">{type[0]}</Typography>
         </div>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={4} style={{display: "flex", justifyContent: "center" }}>
           {type[1].map((skill, index) => (
-            <CartSkills exp skill={skill} key={index} />
+            <CartSkills exp={exp} skill={skill} key={index} />
           ))}
         </Grid>
       </Container>
