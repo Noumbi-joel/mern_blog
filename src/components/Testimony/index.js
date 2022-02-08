@@ -46,8 +46,8 @@ const  Testimony = ({ testimonies, colors }) => {
         <Typography align="center" fontFamily="Poppins" color={colors.white} variant="h2">
           <FormatQuoteSharp style={{ fontSize: "80px" }} />
         </Typography>
-        {testimonies.map((testimony) => (
-          <>
+        {testimonies.map((testimony, index) => (
+          <div key={index}>
             <Typography
               align="center"
               color={colors.white}
@@ -56,7 +56,8 @@ const  Testimony = ({ testimonies, colors }) => {
                 fontWeight: "400",
                 fontSize: "15px",
                 paddingTop: "10px",
-                fontFamily:"Poppins" 
+                fontFamily:"Poppins",
+                textAlign: "justify"
               }}
             >
               {testimony.msg}
@@ -91,7 +92,7 @@ const  Testimony = ({ testimonies, colors }) => {
             >
               {testimony.clientRes}
             </Typography>
-          </>
+          </div>
         ))}
       </Container>
     </div>

@@ -1,61 +1,61 @@
 import React from "react";
-
 //images
-import nodeJs from "../../images/skills/nodejs.png";
-import reactJs from "../../images/skills/reactjs.png";
-import reactNative from "../../images/skills/reactnative.png";
-import redux from "../../images/skills/redux.png";
-import materialUi from "../../images/skills/materialui.png";
-import mongoDb from "../../images/skills/mongodb.png";
-import firebase from "../../images/skills/firebase.png";
-import jsonWebToken from "../../images/skills/jsonwebtoken.png";
-import xamarin from "../../images/skills/xamarin.png";
+import nodeJs from "../images/skills/nodejs.png";
+import reactJs from "../images/skills/reactjs.png";
+import reactNative from "../images/skills/reactnative.png";
+import redux from "../images/skills/redux.png";
+import materialUi from "../images/skills/materialui.png";
+import mongoDb from "../images/skills/mongodb.png";
+import firebase from "../images/skills/firebase.png";
+import jsonWebToken from "../images/skills/jsonwebtoken.png";
+import xamarin from "../images/skills/xamarin.png";
 
-import database from "../../images/services/database.png";
-import web from "../../images/services/web.jpg";
-import mobile from "../../images/services/phone.jfif";
+import database from "../images/services/database.png";
+import web from "../images/services/web.jpg";
+import mobile from "../images/services/phone.jfif";
 
-import steam1 from "../../images/portfolio/steam/part1.png";
-import steam2 from "../../images/portfolio/steam/part3.png";
-import steam3 from "../../images/portfolio/steam/part5.png";
+import steam1 from "../images/portfolio/steam/part1.png";
+import steam2 from "../images/portfolio/steam/part3.png";
+/* import steam3 from "../images/portfolio/steam/part5.png";
+ */
+import agogo1 from "../images/portfolio/agogolines/agogo1.png";
+import agogo4 from "../images/portfolio/agogolines/agogo4.png";
+/* import agogo2 from "../images/portfolio/agogolines/agogo2.png";
+import agogo3 from "../images/portfolio/agogolines/agogo3.png";
+import agogo5 from "../images/portfolio/agogolines/agogo5.png";
+import agogo6 from "../images/portfolio/agogolines/agogo6.png"; */
 
-import agogo1 from "../../images/portfolio/agogolines/agogo1.png";
-import agogo4 from "../../images/portfolio/agogolines/agogo4.png";
-/* import agogo2 from "../../images/portfolio/agogolines/agogo2.png";
-import agogo3 from "../../images/portfolio/agogolines/agogo3.png";
-import agogo5 from "../../images/portfolio/agogolines/agogo5.png";
-import agogo6 from "../../images/portfolio/agogolines/agogo6.png"; */
+import agogolines from "../images/experience/agogolines.jfif";
+import chered from "../images/experience/chered.jfif";
 
-import agogolines from "../../images/experience/agogolines.jfif";
-import chered from "../../images/experience/chered.jfif";
+//blog
+import basket from "../images/blogs/basket.jpg";
+import food from "../images/blogs/food.jpg";
+import tokyo from "../images/blogs/tokyo.jpg";
 
-import basket from "../../images/blogs/basket.jpg";
-import food from "../../images/blogs/food.jpg";
-import tokyo from "../../images/blogs/tokyo.jpg";
+import bgDots from "../images/illustrations/bg-dots.png";
 
-import bgDots from "../../images/illustrations/bg-dots.png";
 //testimonials
-import client1 from "../../images/testimonials/client.jpg"
-
-
-
-import colors from "../../utils/Colors";
-
-//components
-import Categories from "../Categories";
-import Education from "../Education";
-import Portfolio from "../Portfolio";
-import Banner from "../Banner";
-import Testimony from "../Testimony";
+import client1 from "../images/testimonials/client.jpg";
 
 //clients
-import logo1 from "../../images/clients/client-logo-1.png";
-import logo2 from "../../images/clients/client-logo-2.png";
-import logo3 from "../../images/clients/client-logo-3.png";
-import logo4 from "../../images/clients/client-logo-4.png";
-import logo5 from "../../images/clients/client-logo-5.png";
+import logo1 from "../images/clients/client-logo-1.png";
+import logo2 from "../images/clients/client-logo-2.png";
+import logo3 from "../images/clients/client-logo-3.png";
+import logo4 from "../images/clients/client-logo-4.png";
+import logo5 from "../images/clients/client-logo-5.png";
+
+import colors from "../utils/Colors";
+
+//components
+import Slider from "../components/Slider";
+import Categories from "../components/Categories";
+import Education from "../components/Education";
+import Portfolio from "../components/Portfolio";
+import Banner from "../components/Banner";
+import Testimony from "../components/Testimony";
+
 import { Grid } from "@mui/material";
-import Slider from "../Slider";
 
 const clientsList = [
   { image: logo1 },
@@ -81,8 +81,8 @@ const projects = [
   { content: "", image: steam1 },
   { content: "", image: steam2 },
   /* { content: "", image: steam3 }, */
-  { content: "", image: agogo1},
-  { content: "", image: agogo4},
+  { content: "", image: agogo1 },
+  { content: "", image: agogo4 },
   /* { content: "", image: agogo3},
   { content: "", image: agogo2},
   { content: "", image: agogo5},
@@ -118,8 +118,7 @@ const blogs = [
     jobName: "Sensational Burger 💓",
   },
   {
-    title:
-      "Somewhere in Asia Where people are so cool and kind",
+    title: "Somewhere in Asia Where people are so cool and kind",
     image: tokyo,
     jobName: "World Tripping 😃",
   },
@@ -172,30 +171,49 @@ const educations = [
   },
 ];
 
-const Body = (props) => {
+function HomePage() {
   return (
     <>
-      <Banner colors={colors} />
-      <Categories type={["Skills", skills]} exp={false} />
-      <Categories type={["Experiences", experiences]} exp={true} />
+      <Banner colors={colors} bgImg={"leafYellow"} />
+      <Categories type={["Skills", skills]} nolist={false} exp={false} />
+      <Categories
+        type={["Experiences", experiences]}
+        nolist={false}
+        exp={true}
+      />
       <Education
         educations={["educations", educations]}
         bgDots={bgDots}
         colors={colors}
       />
-      <Categories type={["Services", services]} exp={true} />
-      <Portfolio type={["Portfolio", projects]} color={colors} />
+      <Categories
+        type={["Services", services]}
+        nolist={false}
+        exp={true}
+        sd={true}
+      />
+      <Portfolio
+        noGroupBtn={false}
+        type={["Portfolio", projects]}
+        color={colors}
+      />
       <Testimony testimonies={testimonies} colors={colors} />
       <Grid
         container
         spacing={2}
         style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
-      >          
+      >
         <Slider clientsList={clientsList} />
       </Grid>
-      <Categories type={["Blogs", blogs]} exp={true} actions />
+      <Categories
+        type={["Blogs", blogs]}
+        exp={true}
+        nolist={false}
+        actions
+        sd={true}
+      />
     </>
   );
-};
+}
 
-export default Body;
+export default HomePage;

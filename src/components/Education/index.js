@@ -2,21 +2,13 @@ import React from "react";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import { Typography, Container, Grid } from "@mui/material";
 
+import Categories from "../Categories";
+
 const Education = ({ educations, colors, bgDots }) => {
   return (
     <>
+      <Categories type={["Education"]} nolist={true} />
       <Container maxWidth="lg" style={{ backgroundImage: `url(${bgDots})` }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "100px",
-            marginBottom: "50px",
-          }}
-        >
-          <Typography variant="h2">{educations[0]}</Typography>
-        </div>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
