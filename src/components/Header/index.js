@@ -30,7 +30,12 @@ const pages = [
   { routeName: "PortFolio", routeLink: "/portfolio" },
   { routeName: "Contact", routeLink: "/contact" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [
+  { routeName: "Login", routeLink: "/auth" },
+  { routeName: "Profile", routeLink: "/profile" },
+  { routeName: "Dashboard", routeLink: "/dashboard" },
+  { routeName: "Logout", routeLink: "/" },
+];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -110,13 +115,17 @@ const Header = () => {
               }}
             >
               {pages.map((page, index) => (
-                <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <Link to={`${page.routeLink}`}>
+                <Link
+                  key={index}
+                  to={`${page.routeLink}`}
+                  style={{ color: colors.purple, textDecoration: "none" }}
+                >
+                  <MenuItem onClick={handleCloseNavMenu}>
                     <Typography fontFamily="Poppins" textAlign="center">
                       {page.routeName}
                     </Typography>
-                  </Link>
-                </MenuItem>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -137,29 +146,29 @@ const Header = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, index) => (
-              <Button
+              <Link
+                to={`${page.routeLink}`}
+                style={{
+                  color: colors.white,
+                  textDecoration: "none",
+                  fontFamily: "Poppins",
+                }}
                 key={index}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
               >
-                <Link
-                  to={`${page.routeLink}`}
-                  style={{
-                    color: colors.white,
-                    textDecoration: "none",
-                    fontFamily: "Poppins",
-                  }}
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
                 >
                   {page.routeName}
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src="" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -179,11 +188,21 @@ const Header = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseUserMenu}>
-                  <Typography fontFamily="Poppins" textAlign="center">
-                    {setting}
-                  </Typography>
-                </MenuItem>
+                <Link
+                  key={index}
+                  to={`${setting.routeLink}`}
+                  style={{
+                    color: colors.purple,
+                    textDecoration: "none",
+                    fontFamily: "Poppins",
+                  }}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography fontFamily="Poppins" textAlign="center">
+                      {setting.routeName}
+                    </Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>

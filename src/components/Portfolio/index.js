@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, ButtonGroup, Button, Box } from "@mui/material";
+import { Container, Grid, ButtonGroup, Button } from "@mui/material";
 
 import PortfolioProject from "../PortfolioProject";
 import Categories from "../Categories";
@@ -24,7 +24,7 @@ const Portfolio = ({ type, content, colors, noCatName, noGroupBtn }) => {
               aria-label="outlined primary button group"
             >
               {buttons.map((btn, index) => (
-                <Button style={{ width: "100%" }} key={index}>
+                <Button style={{ width: "100%", backgroundColor: '#41228e' }} key={index}>
                   {btn.title}
                 </Button>
               ))}

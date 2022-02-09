@@ -2,7 +2,7 @@ import React from "react";
 import educationBg from "../../images/illustrations/education-bg.png";
 
 import { Typography, Container, Grid } from "@mui/material";
-import CartSkills from "../CartSkills.js";
+import CartSkills from "../CartSkills/index.js";
 
 const Categories = ({ type, exp, actions, sd, nolist, noCatName }) => {
   return (

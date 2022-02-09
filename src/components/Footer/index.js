@@ -1,7 +1,7 @@
 import React from "react";
 import educationBg from "../../images/illustrations/bg-dots.png";
 
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import {
   HomeRounded,
   EmailRounded,
@@ -11,10 +11,10 @@ import {
 //Colors
 import colors from "../../utils/Colors";
 
-import { Form } from "react-bootstrap";
-
 //components
 import Categories from "../Categories";
+
+import Form from "../Form"
 
 const footerInfos = [
   { type: "Email", text: "joelnoumbi28@gmail.com" },
@@ -26,7 +26,7 @@ const Footer = () => {
   return (
     <>
       <Categories
-        style={{ marginTop: "100px", textAlign: 'center' }}
+        style={{ marginTop: "100px", textAlign: "center" }}
         type={["Contact Infos"]}
         nolist={true}
       />
@@ -35,72 +35,10 @@ const Footer = () => {
         style={{ backgroundImage: `url(${educationBg})` }}
       >
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Form
-            className="p-3"
-            style={{
-              width: "600px",
-              height: "500",
-              boxShadow: "0px 18px 39.1px 6.9px rgb(224 241 255 / 34%)",
-              borderRadius: "10px",
-              fontFamily: "Poppins",
-            }}
-          >
-            <Typography variant="h4" align="center">
-              Contact Form
-            </Typography>
-            <Form.Group className="mb-3">
-              <Typography variant="h6">Full Name</Typography>
-              <Form.Control
-                size="lg"
-                type="text"
-                placeholder="Enter your name"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Typography variant="h6">Email address</Typography>
-              <Form.Control
-                size="lg"
-                type="email"
-                placeholder="Enter your email"
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Typography variant="h6">Type message here</Typography>
-              <Form.Control
-                size="lg"
-                as="textArea"
-                rows={3}
-                type="text"
-                placeholder="Enter your message"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                variant="contained"
-                size="lg"
-                style={{
-                  height: "65px",
-                  width: "245px",
-                  backgroundColor: colors.activeBtn,
-                  fontFamily: "Poppins",
-                  fontWeight: "bold",
-                }}
-              >
-                Submit
-              </Button>
-            </div>
-          </Form>
+          <Form colors={colors} />
         </div>
       </Container>
+
       <div
         style={{
           backgroundColor: colors.bgDark,
