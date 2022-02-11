@@ -23,15 +23,18 @@ import AddIcon from "@mui/icons-material/Add";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import PeopleIcon from "@mui/icons-material/People";
 import PersonIcon from "@mui/icons-material/Person";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import GoogleIcon from "@mui/icons-material/Google";
 
 import { useSelector, useDispatch } from "react-redux";
 
 import { getContacts } from "../../../redux/actions/contact";
 
 import { styled, useTheme } from "@mui/material/styles";
-import { Avatar, Badge, MenuItem } from "@mui/material";
+import { Avatar, Badge, Container, MenuItem } from "@mui/material";
 import { Notifications } from "@mui/icons-material";
 import colors from "../../../utils/Colors";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -100,18 +103,8 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const Dashboard = () => {
-  /* const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getContacts());
-  }, [dispatch]); */
-
-  /* 
-    const contacts = useSelector((state) => state.contact);
-    <Container maxWidth="lg" align="center" style={{ marginTop: "150px" }}>
-    <Typography >{JSON.stringify(contacts)}</Typography>
-  </Container> */
+const Dashboard = ({ children }) => {
+  const dispatch = useDispatch();
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -123,6 +116,14 @@ const Dashboard = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const contacts = useSelector((state) => state.contact);
+
+  const approvedContacts = contacts.filter((contact) => contact.approved !== true);
+
+  useEffect(() => {
+    dispatch(getContacts());
+  }, [dispatch]);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -151,7 +152,7 @@ const Dashboard = () => {
               aria-label="show 4 new mails"
               color="inherit"
             >
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={approvedContacts.length??"0"} color="error">
                 <MailIcon />
               </Badge>
             </IconButton>
@@ -162,7 +163,7 @@ const Dashboard = () => {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={0} color="error">
                 <Notifications />
               </Badge>
             </IconButton>
@@ -200,38 +201,81 @@ const Dashboard = () => {
         <Divider />
         <List style={{ paddingTop: "100px" }}>
           {[
-            "Blog Dashboard",
-            "Recent Posts",
-            "Add New Post",
-            "Notifications",
-          ].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index === 0 && <DashboardIcon />}
-                {index === 1 && <SkipPreviousIcon />}
-                {index === 2 && <AddIcon />}
-                {index === 3 && <Notifications />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+            { routeName: "Blog Dashboard", routeLink: "/dashboard/" },
+            { routeName: "Recent Posts", routeLink: "/dashboard/recents" },
+            { routeName: "Add New Post", routeLink: "/dashboard/posts" },
+            {
+              routeName: "Notifications",
+              routeLink: "/dashboard/notifs",
+            },
+          ].map((route, index) => (
+            <Link
+              to={`${route.routeLink}`}
+              key={index}
+              style={{ textDecoration: "none", color: colors.headerColor }}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  {index === 0 && <DashboardIcon />}
+                  {index === 1 && <SkipPreviousIcon />}
+                  {index === 2 && <AddIcon />}
+                  {index === 3 && <Notifications />}
+                </ListItemIcon>
+                <ListItemText primary={route.routeName} />
+              </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />
         <List>
-          {["All Contacts", "Users", "My Profile"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index === 0 && <ConnectWithoutContactIcon />}
-                {index === 1 && <PeopleIcon />}
-                {index === 2 && <PersonIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {[
+            { routeName: "All Contacts", routeLink: "/dashboard/contacts" },
+            { routeName: "Users", routeLink: "/dashboard/users" },
+            { routeName: "My Profile", routeLink: "/dashboard/profile" },
+          ].map((route, index) => (
+            <Link
+              to={`${route.routeLink}`}
+              key={index}
+              style={{ textDecoration: "none", color: colors.headerColor }}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  {index === 0 && <ConnectWithoutContactIcon />}
+                  {index === 1 && <PeopleIcon />}
+                  {index === 2 && <PersonIcon />}
+                </ListItemIcon>
+                <ListItemText primary={route.routeName} />
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {[
+            { routeName: "Gmail", routeLink: "/dashboard/gm" },
+            { routeName: "Youtube", routeLink: "/dashboard/yt" },
+          ].map((route, index) => (
+            <Link
+              to={`${route.routeLink}`}
+              key={index}
+              style={{ textDecoration: "none", color: colors.headerColor }}
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  {index === 0 && <GoogleIcon style={{ color: "green" }} />}
+                  {index === 1 && <YouTubeIcon style={{ color: "red" }} />}
+                </ListItemIcon>
+                <ListItemText primary={route.routeName} />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
+        <Container maxWidth="lg" style={{ marginTop: "50px" }}>
+          {children}
+        </Container>
       </Box>
     </Box>
   );

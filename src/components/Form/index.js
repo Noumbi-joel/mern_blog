@@ -15,6 +15,7 @@ const FormGroup = ({ colors }) => {
     email: "",
     message: "",
     check: "",
+    approved: false
   });
   const [error, setError] = useState();
 

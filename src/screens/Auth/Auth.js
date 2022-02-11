@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -6,48 +6,90 @@ import {
   Button,
   Avatar,
   Paper,
+  Alert,
 } from "@mui/material";
 
-/* import { Link } from "react-router-dom"
- */ import { Lock } from "@mui/icons-material";
+import FileBase from "react-file-base64";
+import { Lock } from "@mui/icons-material";
 
 import Input from "../../components/Input";
+
 import colors from "../../utils/Colors";
 
-import Icon from "../../components/Icons/google";
+import { Link } from "react-router-dom";
 
-//google signin
-import { GoogleLogin } from "react-google-login";
+import { useDispatch } from "react-redux";
 
-const Login = () => {
-  const handleSubmit = () => {};
+//actions
+import { createUser } from "../../redux/actions/user";
 
-  const handleChange = () => {};
+const Auth = ({ signup }) => {
+  const dispatch = useDispatch();
+
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [isSignup, setIsSignup] = useState(false);
-
-  const switchMode = () => {
-    setIsSignup(!isSignup);
+  const handleChange = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const googleSuccess = async (res) => {
-    const result = res?.projectObj;
-    const token = res?.tokenId;
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
 
-    try{
-      console.log("i'm connecting", result);
-    }catch(err){
-      console.log("An error occured gs:", err);
+  const [error, setError] = useState();
+
+  const timer = () => {
+    setTimeout(() => {
+      setError();
+      return () => {
+        clearTimeout(timer);
+      };
+    }, 3000);
+  };
+
+  const clear = () => {
+    setUserData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      imageUrl: "",
+      password: "",
+      confirmPassword: "",
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { firstName, lastName, email, password, confirmPassword } = userData;
+    if (
+      !validateEmail(email) ||
+      firstName.length < 2 ||
+      lastName.length < 2 ||
+      password.length < 4 ||
+      password !== confirmPassword
+    ) {
+      setError("true");
+      return timer();
     }
-  };
-
-  const googleFailure = (err) => {
-    console.log(err);
+    dispatch(createUser(userData));
+    setError("good");
+    clear();
+    timer();
   };
 
   return (
@@ -71,50 +113,80 @@ const Login = () => {
           <Lock />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {isSignup ? "Sign up" : "Sign in"}
+          {signup ? "Sign up" : "Sign in"}
         </Typography>
         <form
           style={{ width: "100%", marginTop: "5px" }}
           onSubmit={handleSubmit}
         >
+          {error === "true" && (
+            <Alert severity="error">You cannot be registered 😢!</Alert>
+          )}
+          {error === "good" && (
+            <Alert severity="success">
+              You've been registered successfully 😃!
+            </Alert>
+          )}
           <Grid container spacing={2}>
-            {isSignup && (
+            {signup && (
               <>
                 <Input
+                  value={userData.firstName}
                   name="firstName"
                   label="First Name"
                   handleChange={handleChange}
                   autoFocus
                   half
+                  holder="Must be 2 characters at least"
                 />
                 <Input
+                  value={userData.lastName}
                   name="lastName"
                   label="Last Name"
                   handleChange={handleChange}
                   half
+                  holder="Must be 2 characters at least"
                 />
               </>
             )}
             <Input
+              value={userData.email}
               name="email"
               label="Email Address"
               handleChange={handleChange}
               type="email"
+              holder=""
             />
             <Input
+              value={userData.password}
               name="password"
               label="Password"
               handleChange={handleChange}
               type={showPassword ? "text" : "password"}
               handleShowPassword={handleShowPassword}
+              holder="Must match with the bottom one"
             />
-            {isSignup && (
-              <Input
-                name="confirmPassword"
-                label="Repeat Password"
-                handleChange={handleChange}
-                type="password"
-              />
+            {signup && (
+              <>
+                <Input
+                  value={userData.confirmPassword}
+                  name="confirmPassword"
+                  label="Repeat Password"
+                  handleChange={handleChange}
+                  type="password"
+                  holder="Must match with the top one"
+                />
+                <div style={{ marginLeft: "14px", marginTop: "14px" }}>
+                  <Typography variant="body1">Pick up your image</Typography>
+                  <FileBase
+                    type="file"
+                    multiple={false}
+                    onDone={({ base64 }) =>
+                      setUserData({ ...userData, imageUrl: base64 })
+                    }
+                  />
+                </div>
+              </>
             )}
           </Grid>
           <Button
@@ -124,41 +196,37 @@ const Login = () => {
             /* style={{color:colors.purple}} */
             style={{ margin: "15px 0 2px", background: colors.purple }}
           >
-            {isSignup ? "Sign Up" : "Sign In"}
+            {signup ? "Sign Up" : "Sign In"}
           </Button>
-
-          <GoogleLogin
-            clientId="474863426254-g6kc8i62sq5rphr7gi3moq5vvdbkj5mm.apps.googleusercontent.com"
-            render={(renderProps) => (
-              <Button
-                style={{
-                  backgroundColor: colors.white,
-                  color: colors.purple,
-                  marginTop: "10px",
-                  marginBottom: "10px",
-                  width: "100%",
-                }}
-                fullWidth
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                startIcon={<Icon />}
-                variant="contained"
-                onSuccess={googleSuccess}
-                onFailure={googleFailure}
-                cookiePolicy={"single_host_origin"}
-                responseType="code,token"
-              >
-                Google Sign in
-              </Button>
-            )}
-          />
           <Grid container justify="flex-end">
             <Grid item>
-              <Button onClick={switchMode} style={{ color: colors.purple }}>
-                {isSignup
-                  ? "Already have an account? Sign in"
-                  : "Don't have an account? Sign Up"}
-              </Button>
+              {signup ? (
+                <Link
+                  to="/auth/signin"
+                  style={{
+                    textDecoration: "none",
+                    fontFamily: "Poppins",
+                    color: colors.purple,
+                  }}
+                >
+                  <Typography component="h1" variant="h6">
+                    Sign in ?
+                  </Typography>
+                </Link>
+              ) : (
+                <Link
+                  to="/auth/signup"
+                  style={{
+                    textDecoration: "none",
+                    fontFamily: "Poppins",
+                    color: colors.purple,
+                  }}
+                >
+                  <Typography component="h1" variant="h6">
+                    Sign up ?
+                  </Typography>
+                </Link>
+              )}
             </Grid>
           </Grid>
         </form>
@@ -167,7 +235,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Auth;
 
 /*  googleButton: {
     marginBottom: theme.spacing(2),

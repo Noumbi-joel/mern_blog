@@ -1,4 +1,6 @@
 import React from "react";
+/* import { useLocation } from "react-router-dom";
+ */
 import educationBg from "../../images/illustrations/bg-dots.png";
 
 import { Container, Grid, Typography } from "@mui/material";
@@ -14,7 +16,7 @@ import colors from "../../utils/Colors";
 //components
 import Categories from "../Categories";
 
-import Form from "../Form"
+import Form from "../Form";
 
 const footerInfos = [
   { type: "Email", text: "joelnoumbi28@gmail.com" },
@@ -23,6 +25,21 @@ const footerInfos = [
 ];
 
 const Footer = () => {
+  /* if (
+    useLocation.pathname !== "/dashboard/profile" ||
+    useLocation.pathname !== "/dashboard" ||
+    useLocation.pathname !== "/dashboard/recents" ||
+    useLocation.pathname !== "/dashboard/posts" ||
+    useLocation.pathname !== "/dashboard/notifs" ||
+    useLocation.pathname !== "/dashboard/contacts" ||
+    useLocation.pathname !== "/dashboard/users" ||
+    useLocation.pathname !== "/dashboard/gm" ||
+    useLocation.pathname !== "/dashboard/yt" ||
+    useLocation.pathname !== "/profile" ||
+    useLocation.pathname !== "/auth"
+  ) {
+    return null;
+  } */
   return (
     <>
       <Categories

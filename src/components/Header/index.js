@@ -31,7 +31,7 @@ const pages = [
   { routeName: "Contact", routeLink: "/contact" },
 ];
 const settings = [
-  { routeName: "Login", routeLink: "/auth" },
+  { routeName: "Login", routeLink: "/auth/signin" },
   { routeName: "Profile", routeLink: "/profile" },
   { routeName: "Dashboard", routeLink: "/dashboard" },
   { routeName: "Logout", routeLink: "/" },

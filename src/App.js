@@ -20,7 +20,16 @@ import Auth from "./screens/Auth/Auth";
 
 import Profile from "./screens/Auth/User/Profile";
 
-import Dashboard from "./screens/Auth/Admin/Dashboard";
+import Dashboard from "./screens/Auth/Admin/DashboardPage";
+
+import Recents from "./screens/Auth/Admin/RecentsPage";
+import Posts from "./screens/Auth/Admin/PostsPage";
+import ContactList from "./screens/Auth/Admin/ContactListPage";
+import Users from "./screens/Auth/Admin/UsersPage";
+import ProfileAdmin from "./screens/Auth/Admin/ProfilePage";
+import Notifications from "./screens/Auth/Admin/NotificationsPage";
+import MyMail from "./screens/Auth/Admin/MyMailPage";
+import Youtube from "./screens/Auth/Admin/YoutubePage";
 
 const App = () => {
   return (
@@ -33,9 +42,18 @@ const App = () => {
         <Route exact path="/blog" element={<Blog />} />
         <Route exact path="/portfolio" element={<Portfolio />} />
         <Route exact path="/contact" element={<Contact />} />
-        <Route exact path="/auth" element={<Auth />} />
-        <Route exact path="/profile" element={<Profile />} />
+        <Route exact path="/auth/signin" element={<Auth />} />
+        <Route exact path="/auth/signup" element={<Auth signup />} />
+        <Route exact path="/profile/:id" element={<Profile />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/dashboard/recents" element={<Recents />} />
+        <Route exact path="/dashboard/posts" element={<Posts />} />
+        <Route exact path="/dashboard/notifs" element={<Notifications />} />
+        <Route exact path="/dashboard/contacts" element={<ContactList />} />
+        <Route exact path="/dashboard/users" element={<Users />} />
+        <Route exact path="/dashboard/profile" element={<ProfileAdmin />} />
+        <Route exact path="/dashboard/gm" element={<MyMail />} />
+        <Route exact path="/dashboard/yt" element={<Youtube />} />
         <Route exact path="*" element={<Error />} />
       </Routes>
       <Footer />
