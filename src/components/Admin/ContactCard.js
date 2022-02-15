@@ -47,7 +47,7 @@ const ContactCard = ({
           <Typography
             sx={{ fontSize: 14 }}
             fontFamily="Poppins"
-            color={contact.check === "on" ? "red" : colors.black}
+            color={contact.check === "on" || contact.check === "true" ? "red" : colors.black}
             variant="h6"
             gutterBottom
           >

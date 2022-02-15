@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -16,15 +16,20 @@ import Input from "../../components/Input";
 
 import colors from "../../utils/Colors";
 
+import { useNavigate } from "react-router";
+
 import { Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
 //actions
-import { createUser } from "../../redux/actions/user";
+import { signin, signup } from "../../redux/actions/auth";
 
-const Auth = ({ signup }) => {
+const Auth = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [isSignup, setIsSignup] = useState(false);
 
   const [userData, setUserData] = useState({
     firstName: "",
@@ -32,6 +37,7 @@ const Auth = ({ signup }) => {
     email: "",
     password: "",
     confirmPassword: "",
+    role: "USER",
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -62,34 +68,31 @@ const Auth = ({ signup }) => {
     }, 3000);
   };
 
-  const clear = () => {
-    setUserData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      imageUrl: "",
-      password: "",
-      confirmPassword: "",
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const { firstName, lastName, email, password, confirmPassword } = userData;
-    if (
-      !validateEmail(email) ||
-      firstName.length < 2 ||
-      lastName.length < 2 ||
-      password.length < 4 ||
-      password !== confirmPassword
-    ) {
-      setError("true");
-      return timer();
+    if (isSignup) {
+      if (
+        !validateEmail(email) ||
+        firstName.length < 2 ||
+        lastName.length < 2 ||
+        password.length < 4 ||
+        password !== confirmPassword
+      ) {
+        setError("true");
+        return timer();
+      }
+      console.log(userData);
+      dispatch(signup(userData));
+    } else {
+      if (!validateEmail(email) || password.length < 4) {
+        setError("true");
+        return timer();
+      }
+      console.log(userData);
+      dispatch(signin(userData));
     }
-    dispatch(createUser(userData));
-    setError("good");
-    clear();
-    timer();
+    navigate("/");
   };
 
   return (
@@ -113,7 +116,7 @@ const Auth = ({ signup }) => {
           <Lock />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {signup ? "Sign up" : "Sign in"}
+          {isSignup ? "Sign up" : "Sign in"}
         </Typography>
         <form
           style={{ width: "100%", marginTop: "5px" }}
@@ -128,7 +131,7 @@ const Auth = ({ signup }) => {
             </Alert>
           )}
           <Grid container spacing={2}>
-            {signup && (
+            {isSignup && (
               <>
                 <Input
                   value={userData.firstName}
@@ -166,7 +169,7 @@ const Auth = ({ signup }) => {
               handleShowPassword={handleShowPassword}
               holder="Must match with the bottom one"
             />
-            {signup && (
+            {isSignup && (
               <>
                 <Input
                   value={userData.confirmPassword}
@@ -193,14 +196,13 @@ const Auth = ({ signup }) => {
             type="submit"
             fullWidth
             variant="contained"
-            /* style={{color:colors.purple}} */
             style={{ margin: "15px 0 2px", background: colors.purple }}
           >
-            {signup ? "Sign Up" : "Sign In"}
+            {isSignup ? "Sign Up" : "Sign In"}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              {signup ? (
+              {isSignup ? (
                 <Link
                   to="/auth/signin"
                   style={{
@@ -208,6 +210,7 @@ const Auth = ({ signup }) => {
                     fontFamily: "Poppins",
                     color: colors.purple,
                   }}
+                  onClick={() => setIsSignup(!isSignup)}
                 >
                   <Typography component="h1" variant="h6">
                     Sign in ?
@@ -221,6 +224,7 @@ const Auth = ({ signup }) => {
                     fontFamily: "Poppins",
                     color: colors.purple,
                   }}
+                  onClick={() => setIsSignup(!isSignup)}
                 >
                   <Typography component="h1" variant="h6">
                     Sign up ?

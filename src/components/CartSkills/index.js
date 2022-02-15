@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import {
   Typography,
-  Container,
   Button,
   Grid,
   Card,
@@ -12,7 +11,7 @@ import {
 } from "@mui/material";
 import colors from "../../utils/Colors";
 
-const CartSkills = ({ skill, exp, actions, sd }) => {
+const CartSkills = ({ post, exp, actions, sd }) => {
   const [shadow, setShadow] = useState(false);
   return (
     <>
@@ -39,8 +38,8 @@ const CartSkills = ({ skill, exp, actions, sd }) => {
           }
         >
           <CardMedia
-            image={skill.image}
-            title={skill.school}
+            image={post.imageUrl}
+            title={post.title}
             style={{ paddingTop: "56.25%" }}
           />
           <CardContent style={{ flexGrow: 1 }}>
@@ -51,7 +50,7 @@ const CartSkills = ({ skill, exp, actions, sd }) => {
                 fontFamily="Poppins"
                 fontWeight="bold"
               >
-                {skill.title} ({skill.percentage})
+                {post.title}
               </Typography>
             ) : (
               <>
@@ -66,7 +65,7 @@ const CartSkills = ({ skill, exp, actions, sd }) => {
                   align="center"
                   fontWeight="bold"
                 >
-                  {skill.duration}
+                  {post.categoryName === "Experiences" && post.debutDate + " to " + post.endDate}
                 </Typography>
                 <Typography
                   variant="h4"
@@ -78,7 +77,7 @@ const CartSkills = ({ skill, exp, actions, sd }) => {
                   align="center"
                   fontWeight="bold"
                 >
-                  {skill.jobName}
+                  {post.title}
                 </Typography>
                 <Typography
                   variant="h6"
@@ -90,7 +89,7 @@ const CartSkills = ({ skill, exp, actions, sd }) => {
                   align="center"
                   fontWeight="bold"
                 >
-                  {skill.title}
+                  {post.paragraph}
                 </Typography>
               </>
             )}

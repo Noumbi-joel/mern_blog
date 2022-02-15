@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Alert,
-  Button,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Alert, Button, Container, Grid, TextField } from "@mui/material";
 import Dashboard from "./DashboardPage";
 import colors from "../../../utils/Colors";
 import { Form } from "react-bootstrap";
@@ -34,6 +27,10 @@ const ProfilePage = () => {
     });
   };
 
+  const [updateProfile, setUpdateProfile] = useState(false);
+
+  const handleSubmit = (e) => {};
+
   return (
     <Dashboard>
       <Header headerName="Admin Profile Informations" />
@@ -47,8 +44,7 @@ const ProfilePage = () => {
             borderRadius: "10px",
             fontFamily: "Poppins",
           }}
-          /*           onSubmit={handleSubmit}
-           */
+          onSubmit={handleSubmit}
         >
           {error === "false" && (
             <Alert severity="error">Your message has not been sent 😢!</Alert>
@@ -81,7 +77,6 @@ const ProfilePage = () => {
                   required
                   value={userData.lastName}
                   onChange={(val) => handleChange(val, "lastName")}
-                  required
                 />
               </Form.Group>
             </Grid>
@@ -94,7 +89,6 @@ const ProfilePage = () => {
                   required
                   value={userData.email}
                   onChange={(val) => handleChange(val, "email")}
-                  required
                 />
                 <Form.Text className="text-muted">
                   We'll never share your email with anyone else.
@@ -110,7 +104,6 @@ const ProfilePage = () => {
                   required
                   value={userData.password}
                   onChange={(val) => handleChange(val, "password")}
-                  required
                 />
               </Form.Group>
             </Grid>
@@ -123,7 +116,6 @@ const ProfilePage = () => {
                   required
                   value={userData.address}
                   onChange={(val) => handleChange(val, "address")}
-                  required
                 />
               </Form.Group>
             </Grid>
@@ -136,7 +128,6 @@ const ProfilePage = () => {
                   required
                   value={userData.city}
                   onChange={(val) => handleChange(val, "city")}
-                  required
                 />
               </Form.Group>
             </Grid>
@@ -149,7 +140,6 @@ const ProfilePage = () => {
                   required
                   value={userData.region}
                   onChange={(val) => handleChange(val, "region")}
-                  required
                 />
               </Form.Group>
             </Grid>
@@ -162,7 +152,6 @@ const ProfilePage = () => {
                   required
                   value={userData.zip}
                   onChange={(val) => handleChange(val, "zip")}
-                  required
                 />
               </Form.Group>
             </Grid>
@@ -171,13 +160,12 @@ const ProfilePage = () => {
                 multiline
                 rows={4}
                 style={{ width: "100%" }}
-                label="Enter your message (10 characters at least)"
+                label="Enter your message"
                 fullWidth
                 required
                 type="text"
                 value={userData.description}
                 onChange={(val) => handleChange(val, "description")}
-                required
               />
             </Grid>
           </Grid>
@@ -191,7 +179,6 @@ const ProfilePage = () => {
             <Button
               variant="contained"
               type="submit"
-              size="lg"
               style={{
                 height: "65px",
                 width: "245px",
@@ -200,7 +187,7 @@ const ProfilePage = () => {
                 fontWeight: "bold",
               }}
             >
-              Update
+              {updateProfile ? "Update Account":"Create Account"}
             </Button>
           </div>
         </form>

@@ -10,11 +10,23 @@ export const updateContact = (id, updatedContact) =>
 export const deleteContact = (id) => API.delete(`/contacts/${id}`);
 
 //auth
-export const fetchUser = () => API.get("/auth");
 export const postUser = (newUser) => API.post(`/auth/signup`, newUser);
-export const deleteUser = (id) => API.delete(`/auth/delete/user/${id}`);
 
 //profile
 export const fetchProfile = (id) => API.get(`/profile/${id}`);
 export const updateProfile = (id, updatedProfile) =>
   API.patch(`/profile/${id}`, updatedProfile);
+
+//user
+export const signUp = (formData) => API.post("/auth/signup", formData);
+export const signIn = (formData) => API.post("/auth/signin", formData);
+
+export const fetchUser = () => API.get("/user");
+export const deleteUser = (id) => API.delete(`/user/delete/${id}`);
+
+//post
+export const fetchPosts = () => API.get("/posts");
+export const sendPost = (newPost) => API.post("/posts/add", newPost);
+export const updatePost = (id, updatedPost) =>
+  API.patch(`/posts/update/${id}`, updatedPost);
+export const deletePost = (id) => API.delete(`/posts/delete/${id}`);

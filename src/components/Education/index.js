@@ -45,7 +45,7 @@ const Education = ({ educations, colors, bgDots }) => {
               </div>
               <div>
                 <Typography paragraph fontFamily="Poppins" color={colors.black}>
-                  {education.year}
+                  {education.debutDate}
                 </Typography>
                 <Typography
                   style={{
@@ -57,7 +57,7 @@ const Education = ({ educations, colors, bgDots }) => {
                   color={colors.black}
                   gutterBottom
                 >
-                  {education.diploma}
+                  {education.title}
                 </Typography>
                 <Typography
                   paragraph
@@ -69,7 +69,7 @@ const Education = ({ educations, colors, bgDots }) => {
                   variant="h4"
                   color={colors.textLight}
                 >
-                  {education.school}
+                  {education.paragraph}
                 </Typography>
               </div>
             </Grid>

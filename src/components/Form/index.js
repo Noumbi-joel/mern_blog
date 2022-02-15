@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button, TextField, Typography, Alert } from "@mui/material";
 import { Form } from "react-bootstrap";
 
+import Input from "../Input";
+
 //***** redux ***** //
 //actions
 import { createContact } from "../../redux/actions/contact";
@@ -15,15 +17,12 @@ const FormGroup = ({ colors }) => {
     email: "",
     message: "",
     check: "",
-    approved: false
+    approved: false,
   });
   const [error, setError] = useState();
 
-  const handleChange = (val, type) => {
-    const res = val.target.value;
-    setContactData((prevState) => {
-      return { ...prevState, [type]: res };
-    });
+  const handleChange = (e) => {
+    setContactData({ ...contactData, [e.target.name]: e.target.value });
   };
 
   const validateEmail = (email) => {
@@ -41,7 +40,7 @@ const FormGroup = ({ colors }) => {
         clearTimeout(timer);
       };
     }, 3000);
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -92,10 +91,11 @@ const FormGroup = ({ colors }) => {
       )}
 
       <Form.Group className="mb-3">
-        <TextField
+        <Input
           type="text"
+          name="name"
           value={contactData.name}
-          onChange={(val) => handleChange(val, "name")}
+          handleChange={handleChange}
           label="Enter your name (2 character at least)"
           fullWidth
           required
@@ -103,13 +103,13 @@ const FormGroup = ({ colors }) => {
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <TextField
+        <Input
           type="email"
+          name="email"
+          value={contactData.email}
+          handleChange={handleChange}
           label="Enter your email"
           fullWidth
-          required
-          value={contactData.email}
-          onChange={(val) => handleChange(val, "email")}
           required
         />
         <Form.Text className="text-muted">
@@ -118,16 +118,16 @@ const FormGroup = ({ colors }) => {
       </Form.Group>
 
       <div>
-        <TextField
+        <Input
+          type="text"
           multiline
           rows={4}
           style={{ width: "100%" }}
+          name="message"
+          value={contactData.message}
+          handleChange={handleChange}
           label="Enter your message (10 characters at least)"
           fullWidth
-          required
-          type="text"
-          value={contactData.message}
-          onChange={(val) => handleChange(val, "message")}
           required
         />
       </div>
@@ -136,7 +136,9 @@ const FormGroup = ({ colors }) => {
         <Form.Check
           type="checkbox"
           checked={contactData.check}
-          onChange={(val) => handleChange(val, "check")}
+          onChange={(val) =>
+            setContactData({ ...contactData, check: !contactData.check })
+          }
           label="Check me out (priority)"
         />
       </Form.Group>

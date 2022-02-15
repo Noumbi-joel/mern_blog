@@ -46,12 +46,12 @@ const Categories = ({ type, exp, actions, sd, nolist, noCatName }) => {
             spacing={4}
             style={{ display: "flex", justifyContent: "center" }}
           >
-            {type[1].map((skill, index) => (
+            {type[1].map((post, index) => (
               <CartSkills
                 exp={exp}
                 sd={sd}
                 actions={actions}
-                skill={skill}
+                post={post}
                 key={index}
               />
             ))}

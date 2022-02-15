@@ -15,9 +15,15 @@ const Input = ({
   handleShowPassword,
   holder,
   disabled,
+  style,
+  rows,
+  multiline,
 }) => (
   <Grid item xs={12} sm={half ? 6 : 12}>
     <TextField
+      multiline={multiline}
+      style={style}
+      rows={rows}
       disabled={disabled}
       placeholder={holder}
       name={name}

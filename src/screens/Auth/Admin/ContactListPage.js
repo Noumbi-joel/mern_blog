@@ -7,31 +7,31 @@ import { Box, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 //actions
-import { getContacts, updateContact, deleteContact } from "../../../redux/actions/contact";
+import {
+  getContacts,
+  updateContact,
+  deleteContact,
+} from "../../../redux/actions/contact";
 
 import ContactCard from "../../../components/Admin/ContactCard";
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
   const contacts = useSelector((state) => state.contact);
 
   useEffect(() => {
     dispatch(getContacts());
-    if (contacts.length > 0) {
-      setLoading(false);
-    }
-  }, [dispatch, contacts]);
+  }, [dispatch]);
 
   return (
     <Dashboard>
       <Header headerName="Contacts Informations" />
-      {loading && (
+      {contacts.length <= 0 && (
         <Box textAlign="center">
           <CircularProgress />
         </Box>
       )}
-      {!loading &&
+      {contacts.length > 0 &&
         contacts.map((contact) => (
           <ContactCard
             key={contact._id}

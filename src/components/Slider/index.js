@@ -9,7 +9,7 @@ const Slider = ({ clientsList }) => {
         <Carousel.Item key={index}>
           <img
             className="d-block w-20"
-            src={client.image}
+            src={client.imageUrl}
             alt={`${index}-slide`}
           />
         </Carousel.Item>

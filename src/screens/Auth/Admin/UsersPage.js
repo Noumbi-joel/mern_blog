@@ -46,21 +46,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const UsersPage = () => {
-  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const users = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getUsers());
-    if (users.length > 0) {
-      setLoading(false);
-    }
-  }, [dispatch, users]);
+  }, [dispatch]);
 
   return (
     <Dashboard>
       <Header headerName="Users Handler" />
-      {loading && (
+      {users.length <= 0 && (
         <Box textAlign="center">
           <CircularProgress />
         </Box>

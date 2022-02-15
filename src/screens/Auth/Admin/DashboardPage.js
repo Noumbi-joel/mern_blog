@@ -30,6 +30,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getContacts } from "../../../redux/actions/contact";
 
+import liJay from "../../../images/blogs/lijay.jpg"
+
 import { styled, useTheme } from "@mui/material/styles";
 import { Avatar, Badge, Container, MenuItem } from "@mui/material";
 import { Notifications } from "@mui/icons-material";
@@ -119,7 +121,9 @@ const Dashboard = ({ children }) => {
 
   const contacts = useSelector((state) => state.contact);
 
-  const approvedContacts = contacts.filter((contact) => contact.approved !== true);
+  const approvedContacts = contacts.filter(
+    (contact) => contact.approved !== true
+  );
 
   useEffect(() => {
     dispatch(getContacts());
@@ -152,7 +156,7 @@ const Dashboard = ({ children }) => {
               aria-label="show 4 new mails"
               color="inherit"
             >
-              <Badge badgeContent={approvedContacts.length??"0"} color="error">
+              <Badge badgeContent={approvedContacts?.length} color="error">
                 <MailIcon />
               </Badge>
             </IconButton>
@@ -176,7 +180,7 @@ const Dashboard = ({ children }) => {
             >
               <Avatar
                 alt="Remy Sharp"
-                src={"https://www.basketstats.fr/images/faces/12068.png"}
+                src={liJay}
               />
             </IconButton>
           </MenuItem>

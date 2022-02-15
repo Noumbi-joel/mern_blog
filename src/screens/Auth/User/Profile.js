@@ -54,7 +54,7 @@ const Profile = () => {
               height: '100px',
             }}
           >
-            <img src={userProfile.imageUrl??""} width="100%" height="100%" alt="" />
+            <img src={userProfile?.imageUrl} width="100%" height="100%" alt="" />
           </Avatar>
           <form
             style={{ width: "100%", marginTop: "5px" }}
@@ -70,35 +70,35 @@ const Profile = () => {
               <>
                 <Input
                   disabled
-                  value={userProfile.firstName ?? ""}
+                  value={userProfile?.firstName}
                   name="firstName"
-                  label="First Name"
+                  /* label="First Name" */
                   autoFocus
                   half
                   holder="Must be 2 characters at least"
                 />
                 <Input
                   disabled
-                  value={userProfile.lastName ?? ""}
+                  value={userProfile?.lastName}
                   name="lastName"
-                  label="Last Name"
+                  /* label="Last Name" */
                   half
                   holder="Must be 2 characters at least"
                 />
               </>
               <Input
                 disabled
-                value={userProfile.email ?? ""}
+                value={userProfile?.email}
                 name="email"
-                label="Email Address"
+                /* label="Email Address" */
                 type="email"
                 holder=""
               />
               <Input
                 disabled
-                value={userProfile.password ?? ""}
+                value={userProfile?.password}
                 name="password"
-                label="Password"
+                /* label="Password" */
                 type={showPassword ? "text" : "password"}
                 holder="Must match with the bottom one"
               />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Typography,
@@ -14,12 +14,17 @@ import {
   IconButton,
 } from "@mui/material";
 
+//import {  } from "../../redux/actions/auth"
+
+import { useDispatch } from "react-redux";
+
 //
 import { Link } from "react-router-dom";
 
+import { logout } from "../../redux/actions/auth"
+
 //material icons
 import MenuIcon from "@mui/icons-material/Menu";
-import Colors from "../../utils/Colors";
 import colors from "../../utils/Colors";
 
 //navbar links
@@ -31,13 +36,16 @@ const pages = [
   { routeName: "Contact", routeLink: "/contact" },
 ];
 const settings = [
-  { routeName: "Login", routeLink: "/auth/signin" },
-  { routeName: "Profile", routeLink: "/profile" },
-  { routeName: "Dashboard", routeLink: "/dashboard" },
-  { routeName: "Logout", routeLink: "/" },
+  { routeName: "Sign in", routeLink: "/auth/signin", access: "both" },
+  { routeName: "Profile", routeLink: "/profile", access: "both" },
+  { routeName: "Dashboard", routeLink: "/dashboard", access: "admin" },
+  { routeName: "Logout", routeLink: "/", access: "both" },
 ];
 
 const Header = () => {
+
+  const dispatch = useDispatch();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -55,12 +63,13 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  let user = JSON.parse(localStorage.getItem("profile"));
   return (
     <AppBar
       position="fixed"
       style={{
         boxShadow: "none",
-        backgroundColor: Colors.purple,
+        backgroundColor: colors.purple,
         height: "100px",
         justifyContent: "center",
       }}
@@ -167,9 +176,27 @@ const Header = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="" />
-              </IconButton>
+              {user ? (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <Typography variant="body1" fontFamily="Poppins" marginRight="10px">
+                    Hello, {user.result.firstName}
+                  </Typography>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="Remy Sharp" src={user.result.imageUrl} />
+                  </IconButton>
+                </div>
+              ) : (
+                <Button
+                  component={Link}
+                  to="/auth/signin"
+                  variant="outlined"
+                  style={{
+                    color: colors.white,
+                  }}
+                >
+                  Sign in
+                </Button>
+              )}
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}
@@ -199,7 +226,7 @@ const Header = () => {
                 >
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography fontFamily="Poppins" textAlign="center">
-                      {setting.routeName}
+                      {setting.access === "admin" ? "" : setting.routeName}
                     </Typography>
                   </MenuItem>
                 </Link>

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //colors
 import colors from "../utils/Colors";
+
+import signature from "../images/about/signature.png";
 
 //components
 import Slider from "../components/Slider";
@@ -9,53 +11,23 @@ import Banner from "../components/Banner";
 import Categories from "../components/Categories";
 
 //mui
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 
 //images
-import author from "../images/about/author.jpg";
-import signature from "../images/about/signature.png";
-import design from "../images/about/design.jpg";
-import deliver from "../images/about/deliver.jpg";
-import plan from "../images/about/plan.jpg";
+import author from "../images/blogs/lijay.jpg";
 
-//clients
-import logo1 from "../images/clients/client-logo-1.png";
-import logo2 from "../images/clients/client-logo-2.png";
-import logo3 from "../images/clients/client-logo-3.png";
-import logo4 from "../images/clients/client-logo-4.png";
-import logo5 from "../images/clients/client-logo-5.png";
+import { useDispatch, useSelector } from "react-redux";
 
-const process = [
-  {
-    title:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: plan,
-    jobName: "Research and Plan",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: design,
-    jobName: "Design and Develop",
-  },
-  {
-    title:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    image: deliver,
-    jobName: "Deliver",
-  },
-];
-
-const clientsList = [
-  { image: logo1 },
-  { image: logo2 },
-  { image: logo3 },
-  { image: logo4 },
-  { image: logo5 },
-];
-
+import { getPosts } from "../redux/actions/post";
 
 function About() {
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
+
   return (
     <div>
       <Banner bannerName="About Me" colors={colors} full />
@@ -133,15 +105,37 @@ function About() {
           </Grid>
         </Grid>
       </Grid>
-      <Categories type={["Work Process", process]} exp={true} sd={true} />
-      <Categories type={["My Clients"]} exp={true} nolist={true} />
-      <Grid
-        container
-        spacing={2}
-        style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
-      >
-        <Slider clientsList={clientsList} />
-      </Grid>
+
+      {posts.length <= 0 && (
+        <Box textAlign="center">
+          <CircularProgress />
+          <Typography variant="body1" fontFamily="Poppins">
+            Wait a moment please...
+          </Typography>
+        </Box>
+      )}
+
+      {posts.length > 0 && (
+        <>
+          <Categories
+            type={[posts[7].name, posts[7].posts]}
+            exp={true}
+            sd={true}
+          /> 
+          <Categories type={["My Clients"]} exp={true} nolist={true} />
+          <Grid
+            container
+            spacing={2}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "50px",
+            }}
+          >
+            <Slider clientsList={posts[5].posts} />
+          </Grid>
+        </>
+      )}
     </div>
   );
 }
