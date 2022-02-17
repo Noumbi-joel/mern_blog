@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Typography,
@@ -14,14 +14,16 @@ import {
   IconButton,
 } from "@mui/material";
 
-//import {  } from "../../redux/actions/auth"
+import { useLocation } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
+/* import { logout } from "../../redux/actions/auth"
+
+import { useDispatch } from "react-redux"; */
 
 //
 import { Link } from "react-router-dom";
 
-import { logout } from "../../redux/actions/auth"
+/* import { logout } from "../../redux/actions/auth" */
 
 //material icons
 import MenuIcon from "@mui/icons-material/Menu";
@@ -36,19 +38,18 @@ const pages = [
   { routeName: "Contact", routeLink: "/contact" },
 ];
 const settings = [
-  { routeName: "Sign in", routeLink: "/auth/signin", access: "both" },
-  { routeName: "Profile", routeLink: "/profile", access: "both" },
-  { routeName: "Dashboard", routeLink: "/dashboard", access: "admin" },
-  { routeName: "Logout", routeLink: "/", access: "both" },
+  { routeName: "Sign in", routeLink: "/auth/signin" },
+  { routeName: "Profile", routeLink: "/profile" },
+  { routeName: "Logout", routeLink: "/" },
 ];
 
 const Header = () => {
-
-  const dispatch = useDispatch();
+  /*  const dispatch = useDispatch(); */
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const location = useLocation();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -63,7 +64,11 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  let user = JSON.parse(localStorage.getItem("profile"));
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location]);
+
   return (
     <AppBar
       position="fixed"
@@ -178,7 +183,11 @@ const Header = () => {
             <Tooltip title="Open settings">
               {user ? (
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <Typography variant="body1" fontFamily="Poppins" marginRight="10px">
+                  <Typography
+                    variant="body1"
+                    fontFamily="Poppins"
+                    marginRight="10px"
+                  >
                     Hello, {user.result.firstName}
                   </Typography>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -226,7 +235,7 @@ const Header = () => {
                 >
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography fontFamily="Poppins" textAlign="center">
-                      {setting.access === "admin" ? "" : setting.routeName}
+                      {setting.routeName}
                     </Typography>
                   </MenuItem>
                 </Link>

@@ -37,7 +37,6 @@ const Auth = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "USER",
   });
   const [showPassword, setShowPassword] = useState(false);
 
@@ -141,6 +140,7 @@ const Auth = () => {
                   autoFocus
                   half
                   holder="Must be 2 characters at least"
+                  type="text"
                 />
                 <Input
                   value={userData.lastName}
@@ -149,6 +149,7 @@ const Auth = () => {
                   handleChange={handleChange}
                   half
                   holder="Must be 2 characters at least"
+                  type="text"
                 />
               </>
             )}

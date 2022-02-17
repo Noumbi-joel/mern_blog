@@ -48,13 +48,10 @@ const App = () => {
         <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/dashboard/recents" element={<Recents />} />
         <Route exact path="/dashboard/posts" element={<Posts />} />
-        <Route exact path="/dashboard/notifs" element={<Notifications />} />
         <Route exact path="/dashboard/contacts" element={<ContactList />} />
         <Route exact path="/dashboard/users" element={<Users />} />
         <Route exact path="/dashboard/profile" element={<ProfileAdmin />} />
-        <Route exact path="/dashboard/gm" element={<MyMail />} />
-        <Route exact path="/dashboard/yt" element={<Youtube />} />
-        <Route exact path="*" element={<Error />} />
+        <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
     </Router>

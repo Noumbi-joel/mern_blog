@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getProfile, updateProfile } from "../../../redux/actions/user";
+import { getProfile } from "../../../redux/actions/user";
 import Input from "../../../components/Input";
 import colors from "../../../utils/Colors";
 

@@ -7,6 +7,7 @@ import {
   DELETE_USER,
   FETCH_PROFILE,
   UPDATE_PROFILE,
+  GET_ID
 } from "../types";
 
 export const getUsers = () => async (dispatch) => {
@@ -49,6 +50,15 @@ export const upgradeProfile = (id, updatedProfile) => async (dispatch) => {
   try {
     const { data } = await api.updateProfile(id, updatedProfile);
     dispatch({ type: UPDATE_PROFILE, payload: data });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getIdFromBack = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchId();
+    dispatch({ type: GET_ID, payload: data });
   } catch (err) {
     console.log(err);
   }

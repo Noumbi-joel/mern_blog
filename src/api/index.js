@@ -2,6 +2,13 @@ import axios from "axios";
 
 const API = axios.create({ baseUrl: "http://localhost:5000" });
 
+API.interceptors.request.use((req) => {
+  if(localStorage.getItem("profile")){
+    req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem("profile")).token}`
+  }
+  return req;
+});
+
 //contacts
 export const fetchContact = () => API.get("/contacts");
 export const postContact = (newContact) => API.post("/contacts", newContact);
@@ -21,8 +28,9 @@ export const updateProfile = (id, updatedProfile) =>
 export const signUp = (formData) => API.post("/auth/signup", formData);
 export const signIn = (formData) => API.post("/auth/signin", formData);
 
-export const fetchUser = () => API.get("/user");
-export const deleteUser = (id) => API.delete(`/user/delete/${id}`);
+export const fetchId = () => API.get("/users/get/id");
+export const fetchUser = () => API.get("/users");
+export const deleteUser = (id) => API.delete(`/users/delete/${id}`);
 
 //post
 export const fetchPosts = () => API.get("/posts");
