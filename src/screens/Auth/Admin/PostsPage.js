@@ -18,11 +18,14 @@ import { createPost } from "../../../redux/actions/post";
 const PostsPage = () => {
   const dispatch = useDispatch();
   const [success, setSuccess] = useState(false);
+  const [isBlog, setIsBlog] = useState(false);
+
   const [postData, setPostData] = useState({
     title: "",
     paragraph: "",
     imageUrl: "",
-    categoryName: "",
+    categoryName: !isBlog ? "Portfolio" : "Blogs",
+    githubLink: "",
     debutDate: "",
     endDate: "",
   });
@@ -37,6 +40,7 @@ const PostsPage = () => {
       paragraph: "",
       imageUrl: "",
       categoryName: "",
+      githubLink: "",
       debutDate: "",
       endDate: "",
     });
@@ -45,8 +49,8 @@ const PostsPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(postData);
-    dispatch(createPost(postData));
-    setSuccess(true)
+    //dispatch(createPost(postData));
+    setSuccess(true);
     clear();
   };
 
@@ -64,60 +68,28 @@ const PostsPage = () => {
             {success && (
               <Alert severity="success">Your post has been sent 😃!</Alert>
             )}
-            <Input
-              value={postData.title}
-              name="title"
-              label="Your post title"
-              handleChange={handleChange}
-              style={{ marginBottom: "10px", marginRight: "5px" }}
-              type="text"
-              fullWidth
-              required
-            />
-            <Input
-              value={postData.debutDate}
-              name="debutDate"
-              handleChange={handleChange}
-              style={{ marginBottom: "10px" }}
-              type="date"
-              fullWidth
-            />
-            <Input
-              value={postData.endDate}
-              name="endDate"
-              handleChange={handleChange}
-              style={{ marginBottom: "10px" }}
-              type="date"
-              fullWidth
-            />
-            <Input
-              multiline
-              style={{ width: "100%", marginBottom: "10px" }}
-              rows={5}
-              value={postData.paragraph}
-              name="paragraph"
-              label="Your post message"
-              handleChange={handleChange}
-              type="text"
-            />
-            <Grid
-              container
-              spacing={2}
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <Grid item xs={12} sm={4}>
+            {isBlog ? (
+              <>
                 <Input
-                  value={postData.categoryName}
-                  style={{ marginBottom: "10px" }}
-                  name="categoryName"
-                  label="Your post category"
+                  value={postData.title}
+                  name="title"
+                  label="Your post title"
                   handleChange={handleChange}
+                  style={{ marginBottom: "10px", marginRight: "5px" }}
                   type="text"
                   fullWidth
                   required
                 />
-              </Grid>
-              <Grid item xs={12} sm={4} align="center">
+                <Input
+                  value={postData.githubLink}
+                  name="githubLink"
+                  label="Your Github Link"
+                  handleChange={handleChange}
+                  style={{ marginBottom: "10px", marginRight: "5px" }}
+                  type="text"
+                  fullWidth
+                  required
+                />
                 <FileBase
                   type="file"
                   multiple={false}
@@ -125,13 +97,85 @@ const PostsPage = () => {
                     setPostData({ ...postData, imageUrl: base64 })
                   }
                 />
-              </Grid>
-              <Grid item xs={12} sm={4} align="right">
-                <Button type="submit" variant="contained">
+                <Button type="submit" variant="outlined">
                   Submit
                 </Button>
-              </Grid>
-            </Grid>
+              </>
+            ) : (
+              <>
+                <Input
+                  value={postData.title}
+                  name="title"
+                  label="Your post title"
+                  handleChange={handleChange}
+                  style={{ marginBottom: "10px", marginRight: "5px" }}
+                  type="text"
+                  fullWidth
+                  required
+                />
+                <Input
+                  value={postData.debutDate}
+                  name="debutDate"
+                  handleChange={handleChange}
+                  style={{ marginBottom: "10px" }}
+                  type="date"
+                  fullWidth
+                />
+                <Input
+                  value={postData.endDate}
+                  name="endDate"
+                  handleChange={handleChange}
+                  style={{ marginBottom: "10px" }}
+                  type="date"
+                  fullWidth
+                />
+                <Input
+                  multiline
+                  style={{ width: "100%", marginBottom: "10px" }}
+                  rows={5}
+                  value={postData.paragraph}
+                  name="paragraph"
+                  label="Your post message"
+                  handleChange={handleChange}
+                  type="text"
+                />
+                <Grid
+                  container
+                  spacing={2}
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <Grid item xs={12} sm={4}>
+                    <Input
+                      value={postData.categoryName}
+                      style={{ marginBottom: "10px" }}
+                      name="categoryName"
+                      label="Your post category"
+                      handleChange={handleChange}
+                      type="text"
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={4} align="center">
+                    <FileBase
+                      type="file"
+                      multiple={false}
+                      onDone={({ base64 }) =>
+                        setPostData({ ...postData, imageUrl: base64 })
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={4} align="right">
+                    <Button type="submit" variant="contained">
+                      Submit
+                    </Button>
+                  </Grid>
+                </Grid>
+              </>
+            )}
+            <Button onClick={() => setIsBlog(!isBlog)}>
+              Toggle to {isBlog ? "Blog" : "Project"} Form
+            </Button>
           </Paper>
         </form>
       </Container>

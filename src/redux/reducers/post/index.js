@@ -23,7 +23,7 @@ const defaultState = {
 const reducer = (state = defaultState.posts, action) => {
   switch (action.type) {
     case FETCH_POST:
-      action.payload.map((post) => {
+      action.payload.forEach((post) => {
         switch (post.categoryName) {
           case "Skills":
             if (!(defaultState.categories[0].posts.includes(post))) {

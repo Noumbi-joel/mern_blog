@@ -16,14 +16,11 @@ import {
 
 import { useLocation } from "react-router-dom";
 
-/* import { logout } from "../../redux/actions/auth"
+import { logout } from "../../redux/actions/auth";
 
-import { useDispatch } from "react-redux"; */
+import { useDispatch } from "react-redux";
 
-//
 import { Link } from "react-router-dom";
-
-/* import { logout } from "../../redux/actions/auth" */
 
 //material icons
 import MenuIcon from "@mui/icons-material/Menu";
@@ -44,7 +41,7 @@ const settings = [
 ];
 
 const Header = () => {
-  /*  const dispatch = useDispatch(); */
+  const dispatch = useDispatch();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -227,6 +224,11 @@ const Header = () => {
                 <Link
                   key={index}
                   to={`${setting.routeLink}`}
+                  onClick={
+                    setting.routeName === "Logout"
+                      ? () => dispatch(logout())
+                      : () => {}
+                  }
                   style={{
                     color: colors.purple,
                     textDecoration: "none",
@@ -235,7 +237,9 @@ const Header = () => {
                 >
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography fontFamily="Poppins" textAlign="center">
-                      {setting.routeName}
+                      {setting.routeName === "Profile"
+                        ? null
+                        : setting.routeName}
                     </Typography>
                   </MenuItem>
                 </Link>

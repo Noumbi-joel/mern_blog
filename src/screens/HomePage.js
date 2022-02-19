@@ -37,7 +37,7 @@ function HomePage() {
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
-
+  console.log(posts);
   return (
     <>
       <Banner colors={colors} bgImg={"leafYellow"} />

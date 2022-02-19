@@ -5,7 +5,6 @@ import {
   DELETE_USER,
   FETCH_PROFILE,
   UPDATE_PROFILE,
-  GET_ID
 } from "../../actions/types";
 
 const defaultState = {
@@ -18,9 +17,7 @@ const reducer = (state = defaultState.users, action) => {
     case FETCH_PROFILE:
       return action.payload;
     case CREATE_USER:
-      return [...state, action.payload];
-    case GET_ID:
-      return action.payload 
+      return [...state, action.payload]; 
     case UPDATE_PROFILE:
       return state.map((user) =>
         user._id === action.payload._id ? action.payload : user

@@ -9,8 +9,6 @@ export const CREATE_USER = "CREATE_USER";
 export const AUTH_SIGNIN = "AUTH_SIGNIN";
 export const AUTH_SIGNUP = "AUTH_SIGNUP";
 export const LOGOUT = "LOGOUT";
-export const GET_ID = "GET_ID";
-
 
 export const FETCH_USER = "FETCH_USER";
 export const UPDATE_USER = "UPDATE_USER";

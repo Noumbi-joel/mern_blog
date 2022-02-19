@@ -16,8 +16,6 @@ export const updateContact = (id, updatedContact) =>
   API.patch(`/contacts/${id}`, updatedContact);
 export const deleteContact = (id) => API.delete(`/contacts/${id}`);
 
-//auth
-export const postUser = (newUser) => API.post(`/auth/signup`, newUser);
 
 //profile
 export const fetchProfile = (id) => API.get(`/profile/${id}`);
@@ -28,7 +26,6 @@ export const updateProfile = (id, updatedProfile) =>
 export const signUp = (formData) => API.post("/auth/signup", formData);
 export const signIn = (formData) => API.post("/auth/signin", formData);
 
-export const fetchId = () => API.get("/users/get/id");
 export const fetchUser = () => API.get("/users");
 export const deleteUser = (id) => API.delete(`/users/delete/${id}`);
 

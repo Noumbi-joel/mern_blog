@@ -12,7 +12,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getProfile } from "../../../redux/actions/user";
 import Input from "../../../components/Input";
 import colors from "../../../utils/Colors";
 
@@ -26,10 +25,6 @@ const Profile = () => {
   const handleSubmit = (e) => {};
 
   console.log(userProfile);
-
-  useEffect(() => {
-    dispatch(getProfile(id));
-  }, [dispatch, id]);
   return (
     <div>
       <Container maxWidth="lg" style={{ marginTop: "120px" }}>
