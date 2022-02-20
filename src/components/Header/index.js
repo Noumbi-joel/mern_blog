@@ -42,11 +42,11 @@ const settings = [
 
 const Header = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const location = useLocation();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };

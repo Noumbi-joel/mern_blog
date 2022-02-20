@@ -24,7 +24,7 @@ const PostsPage = () => {
     title: "",
     paragraph: "",
     imageUrl: "",
-    categoryName: !isBlog ? "Portfolio" : "Blogs",
+    categoryName: "",
     githubLink: "",
     debutDate: "",
     endDate: "",
@@ -48,8 +48,13 @@ const PostsPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(postData);
-    //dispatch(createPost(postData));
+    if (isBlog) {
+      console.log(postData);
+      dispatch(createPost(postData));
+    } else {
+      console.log(postData);
+      dispatch(createPost(postData));
+    }
     setSuccess(true);
     clear();
   };
@@ -68,7 +73,7 @@ const PostsPage = () => {
             {success && (
               <Alert severity="success">Your post has been sent 😃!</Alert>
             )}
-            {isBlog ? (
+            {!isBlog ? (
               <>
                 <Input
                   value={postData.title}
@@ -90,16 +95,34 @@ const PostsPage = () => {
                   fullWidth
                   required
                 />
-                <FileBase
-                  type="file"
-                  multiple={false}
-                  onDone={({ base64 }) =>
-                    setPostData({ ...postData, imageUrl: base64 })
-                  }
-                />
-                <Button type="submit" variant="outlined">
-                  Submit
-                </Button>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Input
+                    value={postData.categoryName}
+                    style={{ marginBottom: "10px" }}
+                    name="categoryName"
+                    label="Your post category"
+                    handleChange={handleChange}
+                    type="text"
+                    fullWidth
+                    required
+                  />
+                  <FileBase
+                    type="file"
+                    multiple={false}
+                    onDone={({ base64 }) =>
+                      setPostData({ ...postData, imageUrl: base64 })
+                    }
+                  />
+                  <Button type="submit" variant="outlined">
+                    Submit
+                  </Button>
+                </div>
               </>
             ) : (
               <>

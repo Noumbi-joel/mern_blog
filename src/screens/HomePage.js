@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 
 import client1 from "../images/testimonials/client.jpg";
 
@@ -34,10 +34,83 @@ function HomePage() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.post);
 
+  const computeCategories = (allPost) => {
+    const categories = [
+      { name: "Skills", posts: [] },
+      { name: "Experiences", posts: [] },
+      { name: "Education", posts: [] },
+      { name: "Services", posts: [] },
+      { name: "Portfolio", posts: [] },
+      { name: "Clients", posts: [] },
+      { name: "Blogs", posts: [] },
+      { name: "Work Process", posts: [] },
+    ];
+
+    allPost.forEach((post) => {
+      switch (post.categoryName) {
+        case "Skills":
+          if (!categories[0].posts.includes(post)) {
+            return categories[0].posts.push(post);
+          }
+          break;
+
+        case "Experiences":
+          if (!categories[1].posts.includes(post)) {
+            return categories[1].posts.push(post);
+          }
+          break;
+
+        case "Education":
+          if (!categories[2].posts.includes(post)) {
+            return categories[2].posts.push(post);
+          }
+          break;
+
+        case "Services":
+          if (!categories[3].posts.includes(post)) {
+            return categories[3].posts.push(post);
+          }
+          break;
+
+        case "Portfolio":
+          if (!categories[4].posts.includes(post)) {
+            return categories[4].posts.push(post);
+          }
+          break;
+
+        case "Clients":
+          if (!categories[5].posts.includes(post)) {
+            return categories[5].posts.push(post);
+          }
+          break;
+
+        case "Blogs":
+          if (!categories[6].posts.includes(post)) {
+            return categories[6].posts.push(post);
+          }
+          break;
+
+        case "Work Process":
+          if (!categories[7].posts.includes(post)) {
+            return categories[7].posts.push(post);
+          }
+          break;
+        default:
+          break;
+      }
+    });
+    console.log(categories);
+    return categories;
+  };
+
+  const getCategories = useMemo(() => {
+    return computeCategories(posts);
+  }, [posts]);
+
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
-  console.log(posts);
+
   return (
     <>
       <Banner colors={colors} bgImg={"leafYellow"} />
@@ -51,28 +124,28 @@ function HomePage() {
         </Box>
       )}
 
-      {posts.length > 0 && (
+      {getCategories && (
         <>
           <Categories
-            type={[posts[0].name, posts[0].posts]}
+            type={[getCategories[0].name, getCategories[0].posts]}
             nolist={false}
             exp={false}
           />
 
           <Categories
-            type={[posts[1].name, posts[1].posts]}
+            type={[getCategories[1].name, getCategories[1].posts]}
             nolist={false}
             exp={true}
           />
 
           <Education
-            educations={[posts[2].name, posts[2].posts]}
+            educations={[getCategories[2].name, getCategories[2].posts]}
             bgDots={bgDots}
             colors={colors}
           />
 
           <Categories
-            type={[posts[3].name, posts[3].posts]}
+            type={[getCategories[3].name, getCategories[3].posts]}
             nolist={false}
             exp={true}
             sd={true}
@@ -80,7 +153,7 @@ function HomePage() {
 
           <Portfolio
             noGroupBtn={false}
-            type={[posts[4].name, posts[4].posts]}
+            type={[getCategories[4].name, getCategories[4].posts]}
             color={colors}
           />
 
@@ -95,11 +168,11 @@ function HomePage() {
               marginTop: "50px",
             }}
           >
-            <Slider clientsList={posts[5].posts} />
+            <Slider clientsList={[getCategories[5].posts]} />
           </Grid>
 
           <Categories
-            type={[posts[6].name, posts[6].posts]}
+            type={[getCategories[6].name, getCategories[6].posts]}
             exp={true}
             nolist={false}
             actions

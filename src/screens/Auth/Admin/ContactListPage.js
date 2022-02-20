@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../../../components/Admin/Header";
 import Dashboard from "./DashboardPage";
 
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -29,6 +29,9 @@ const ContactList = () => {
       {contacts.length <= 0 && (
         <Box textAlign="center">
           <CircularProgress />
+          <Typography variant="body1" fontFamily="Poppins">
+            Wait a moment please...
+          </Typography>
         </Box>
       )}
       {contacts.length > 0 &&

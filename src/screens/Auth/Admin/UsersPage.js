@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import {
-  Button,
-  CircularProgress,
-  Typography,
-} from "@mui/material";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import Dashboard from "./DashboardPage";
 
 import { styled } from "@mui/material/styles";
@@ -59,12 +55,10 @@ const UsersPage = () => {
       {users.length <= 0 && (
         <Box textAlign="center">
           <CircularProgress />
+          <Typography variant="body1" fontFamily="Poppins">
+            Wait a moment please...
+          </Typography>
         </Box>
-      )}
-      {users.length <= 0 && (
-        <Typography variant="h5" align="center">
-          No Users found !
-        </Typography>
       )}
       {users.length > 0 && (
         <TableContainer component={Paper}>

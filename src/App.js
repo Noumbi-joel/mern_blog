@@ -27,9 +27,6 @@ import Posts from "./screens/Auth/Admin/PostsPage";
 import ContactList from "./screens/Auth/Admin/ContactListPage";
 import Users from "./screens/Auth/Admin/UsersPage";
 import ProfileAdmin from "./screens/Auth/Admin/ProfilePage";
-import Notifications from "./screens/Auth/Admin/NotificationsPage";
-import MyMail from "./screens/Auth/Admin/MyMailPage";
-import Youtube from "./screens/Auth/Admin/YoutubePage";
 
 const App = () => {
   return (
